@@ -1,0 +1,21 @@
+- ros_topic_name: "/vehicle_blue/cmd_vel"
+  gz_topic_name: "/model/vehicle_blue/cmd_vel"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  gz_type_name: "gz.msgs.Twist"
+  direction: ROS_TO_GZ
+- ros_topic_name: "/vehicle_blue/odometry"
+  gz_topic_name: "/model/vehicle_blue/odometry"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "gz.msgs.Odometry"
+  direction: GZ_TO_ROS
+- ros_topic_name: "/vehicle_green/cmd_vel"
+  gz_topic_name: "/model/vehicle_green/cmd_vel"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  gz_type_name: "gz.msgs.Twist"
+  direction: ROS_TO_GZ
+- ros_topic_name: "/vehicle_green/odometry"
+  gz_topic_name: "/model/vehicle_green/odometry"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "gz.msgs.Odometry"
+  direction: GZ_TO_ROS
+
