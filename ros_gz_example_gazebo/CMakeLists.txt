@@ -21,12 +21,6 @@ install(
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
-
-install(
-  DIRECTORY
-    test/
-  DESTINATION share/${PROJECT_NAME}/test
-)
 endif()
 
 ament_package()

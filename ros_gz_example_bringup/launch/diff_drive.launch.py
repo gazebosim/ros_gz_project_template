@@ -27,15 +27,16 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
+    pkg_project_bringup = get_package_share_directory('ros_gz_example_bringup')
+    pkg_project_description = get_package_share_directory('ros_gz_example_description')
 
-    pkg_ros_gz_example = get_package_share_directory('ros_gz_example')
     pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
 
     gz_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')),
         launch_arguments={'gz_args': PathJoinSubstitution([
-            pkg_ros_gz_example,
+            pkg_project_description,
             'worlds',
             'diff_drive.sdf'
         ])}.items(),
@@ -45,7 +46,7 @@ def generate_launch_description():
     rviz = Node(
        package='rviz2',
        executable='rviz2',
-       arguments=['-d', os.path.join(pkg_ros_gz_example, 'rviz', 'diff_drive.rviz')],
+       arguments=['-d', os.path.join(pkg_project_bringup, 'rviz', 'ros_gz_example.rviz')],
        condition=IfCondition(LaunchConfiguration('rviz'))
     )
 
@@ -53,12 +54,11 @@ def generate_launch_description():
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
-        arguments=['/model/vehicle_blue/cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist',
-                   '/model/vehicle_blue/odometry@nav_msgs/msg/Odometry@ignition.msgs.Odometry',
-                   '/model/vehicle_green/cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist',
-                   '/model/vehicle_green/odometry@nav_msgs/msg/Odometry@ignition.msgs.Odometry'],
-        parameters=[{'qos_overrides./model/vehicle_blue.subscriber.reliability': 'reliable',
-                     'qos_overrides./model/vehicle_green.subscriber.reliability': 'reliable'}],
+        parameters=[{
+            'config_file': os.path.join(pkg_project_bringup, 'config', 'ros_gz_example_bridge.yaml'),
+            'qos_overrides./model/vehicle_blue.subscriber.reliability': 'reliable',
+            'qos_overrides./model/vehicle_green.subscriber.reliability': 'reliable'
+        }],
         output='screen'
     )
 
