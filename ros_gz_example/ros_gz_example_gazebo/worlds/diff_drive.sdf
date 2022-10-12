@@ -2,11 +2,11 @@
 <!--
   Gazebo Sim sdformat_urdf parser plugin demo
   Try sending commands:
-    gz topic -t "/model/vehicle/cmd_vel" -m gz.msgs.Twist -p "linear: {x: 1.0}, angular: {z: -0.1}"
-    ros2 topic pub /model/vehicle/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 5.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: -0.1}}"
+    gz topic -t "/model/diff_drive/cmd_vel" -m gz.msgs.Twist -p "linear: {x: 1.0}, angular: {z: -0.1}"
+    ros2 topic pub /model/diff_drive/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 5.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: -0.1}}"
   Listen to odometry:
-    gz topic -e -t /model/vehicle/odometry
-    ros2 topic echo /model/vehicle/odometry
+    gz topic -e -t /model/diff_drive/odometry
+    ros2 topic echo /model/diff_drive/odometry
 -->
 <sdf version="1.8">
   <world name="demo">
@@ -52,11 +52,11 @@
       </link>
     </model>
 
-    <model name="vehicle">
+    <model name="diff_drive">
       <self_collide>true</self_collide>
       <pose>0 0 0 0 0 0</pose>
       <include merge="true">
-        <uri>package://ros_gz_sim_demos/models/vehicle</uri>
+        <uri>package://ros_gz_example_description/models/diff_drive</uri>
       </include>
 
       <plugin
@@ -76,8 +76,8 @@
       <plugin
         filename="gz-sim-odometry-publisher-system"
         name="gz::sim::systems::OdometryPublisher">
-        <odom_frame>vehicle/odom</odom_frame>
-        <robot_base_frame>vehicle</robot_base_frame>
+        <odom_frame>diff_drive/odom</odom_frame>
+        <robot_base_frame>diff_drive</robot_base_frame>
       </plugin>
 
     </model>

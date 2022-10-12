@@ -37,7 +37,7 @@ def generate_launch_description():
         launch_arguments={'gz_args': PathJoinSubstitution([
             pkg_ros_gz_example,
             'worlds',
-            'example.sdf'
+            'diff_drive.sdf'
         ])}.items(),
     )
 
@@ -45,7 +45,7 @@ def generate_launch_description():
     rviz = Node(
        package='rviz2',
        executable='rviz2',
-       arguments=['-d', os.path.join(pkg_ros_gz_example, 'rviz', 'example.rviz')],
+       arguments=['-d', os.path.join(pkg_ros_gz_example, 'rviz', 'diff_drive.rviz')],
        condition=IfCondition(LaunchConfiguration('rviz'))
     )
 
