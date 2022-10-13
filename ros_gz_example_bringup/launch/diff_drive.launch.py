@@ -46,7 +46,7 @@ def generate_launch_description():
     rviz = Node(
        package='rviz2',
        executable='rviz2',
-       arguments=['-d', os.path.join(pkg_project_bringup, 'rviz', 'ros_gz_example.rviz')],
+       arguments=['-d', os.path.join(pkg_project_bringup, 'rviz', 'diff_drive.rviz')],
        condition=IfCondition(LaunchConfiguration('rviz'))
     )
 
@@ -56,8 +56,7 @@ def generate_launch_description():
         executable='parameter_bridge',
         parameters=[{
             'config_file': os.path.join(pkg_project_bringup, 'config', 'ros_gz_example_bridge.yaml'),
-            'qos_overrides./model/vehicle_blue.subscriber.reliability': 'reliable',
-            'qos_overrides./model/vehicle_green.subscriber.reliability': 'reliable'
+            'qos_overrides./model/diff_drive.subscriber.reliability': 'reliable',
         }],
         output='screen'
     )

@@ -1,6 +1,5 @@
 <?xml version="1.0" ?>
 <!--
-  Gazebo Sim sdformat_urdf parser plugin demo
   Try sending commands:
     gz topic -t "/model/diff_drive/cmd_vel" -m gz.msgs.Twist -p "linear: {x: 1.0}, angular: {z: -0.1}"
     ros2 topic pub /model/diff_drive/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 5.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: -0.1}}"
