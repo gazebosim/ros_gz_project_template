@@ -28,7 +28,7 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     pkg_project_bringup = get_package_share_directory('ros_gz_example_bringup')
-    pkg_project_description = get_package_share_directory('ros_gz_example_description')
+    pkg_project_gazebo = get_package_share_directory('ros_gz_example_gazebo')
 
     pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
 
@@ -36,7 +36,7 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')),
         launch_arguments={'gz_args': PathJoinSubstitution([
-            pkg_project_description,
+            pkg_project_gazebo,
             'worlds',
             'diff_drive.sdf'
         ])}.items(),
