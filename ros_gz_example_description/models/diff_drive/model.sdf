@@ -164,6 +164,7 @@
         <sensor name='gpu_lidar' type='gpu_lidar'>
           <pose>0 0 0 0 0 0</pose>
           <topic>scan</topic>
+          <ignition_frame_id>diff_drive/lidar_link</ignition_frame_id>
           <update_rate>10</update_rate>
           <lidar>
             <scan>

@@ -26,7 +26,6 @@
       filename="gz-sim-user-commands-system"
       name="gz::sim::systems::UserCommands">
     </plugin>
-
     <plugin
       filename="BasicSystem"
       name="ros_gz_example_gazebo::BasicSystem">

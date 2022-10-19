@@ -29,7 +29,7 @@ from launch_ros.actions import Node
 def generate_launch_description():
     pkg_project_bringup = get_package_share_directory('ros_gz_example_bringup')
     pkg_project_gazebo = get_package_share_directory('ros_gz_example_gazebo')
-
+    pkg_project_description = get_package_share_directory('ros_gz_example_description')
     pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
 
     gz_sim = IncludeLaunchDescription(
@@ -46,7 +46,7 @@ def generate_launch_description():
     rviz = Node(
        package='rviz2',
        executable='rviz2',
-       arguments=['-d', os.path.join(pkg_project_bringup, 'rviz', 'diff_drive.rviz')],
+       arguments=['-d', os.path.join(pkg_project_bringup, 'config', 'diff_drive.rviz')],
        condition=IfCondition(LaunchConfiguration('rviz'))
     )
 
@@ -56,15 +56,33 @@ def generate_launch_description():
         executable='parameter_bridge',
         parameters=[{
             'config_file': os.path.join(pkg_project_bringup, 'config', 'ros_gz_example_bridge.yaml'),
-            'qos_overrides./model/diff_drive.subscriber.reliability': 'reliable',
+            'qos_overrides./tf_static.publisher.durability': 'transient_local',
         }],
         output='screen'
+    )
+
+    sdf_file = os.path.join(pkg_project_description, 'models', 'diff_drive', 'model.sdf')
+
+    with open(sdf_file, 'r') as infp:
+        robot_desc = infp.read()
+
+    # Get the parser plugin convert sdf to urdf using robot_description topic
+    robot_state_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher',
+        output='screen',
+        parameters=[
+            {'use_sim_time': True},
+            {'robot_description': robot_desc},
+        ]
     )
 
     return LaunchDescription([
         gz_sim,
         DeclareLaunchArgument('rviz', default_value='true',
                               description='Open RViz.'),
+        robot_state_publisher,
         bridge,
         rviz
     ])
