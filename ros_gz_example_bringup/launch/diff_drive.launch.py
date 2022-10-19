@@ -30,13 +30,12 @@ def generate_launch_description():
     pkg_project_bringup = get_package_share_directory('ros_gz_example_bringup')
     pkg_project_gazebo = get_package_share_directory('ros_gz_example_gazebo')
     pkg_project_description = get_package_share_directory('ros_gz_example_description')
+    pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
 
+    # Load the SDF file from "description" package
     sdf_file  =  os.path.join(pkg_project_description, 'models', 'diff_drive', 'model.sdf')
-
     with open(sdf_file, 'r') as infp:
         robot_desc = infp.read()
-
-    pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
 
     gz_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -59,25 +58,24 @@ def generate_launch_description():
         ]
     )
 
+    # RViz
+    rviz = Node(
+       package='rviz2',
+       executable='rviz2',
+       arguments=['-d', os.path.join(pkg_project_bringup, 'config', 'diff_drive.rviz')],
+       condition=IfCondition(LaunchConfiguration('rviz'))
+    )
+
     # Bridge
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
         parameters=[{
             'config_file': os.path.join(pkg_project_bringup, 'config', 'ros_gz_example_bridge.yaml'),
-            'qos_overrides./model/diff_drive.subscriber.reliability': 'reliable',
+            'qos_overrides./tf_static.publisher.durability': 'transient_local',
         }],
         output='screen'
     )
-
-    # RViz
-    rviz = Node(
-       package='rviz2',
-       executable='rviz2',
-       arguments=['-d', os.path.join(pkg_project_bringup, 'rviz', 'diff_drive.rviz')],
-       condition=IfCondition(LaunchConfiguration('rviz'))
-    )
-
 
     return LaunchDescription([
         gz_sim,
