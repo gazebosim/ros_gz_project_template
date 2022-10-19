@@ -29,6 +29,12 @@ from launch_ros.actions import Node
 def generate_launch_description():
     pkg_project_bringup = get_package_share_directory('ros_gz_example_bringup')
     pkg_project_gazebo = get_package_share_directory('ros_gz_example_gazebo')
+    pkg_project_description = get_package_share_directory('ros_gz_example_description')
+
+    sdf_file  =  os.path.join(pkg_project_description, 'models', 'diff_drive', 'model.sdf')
+
+    with open(sdf_file, 'r') as infp:
+        robot_desc = infp.read()
 
     pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
 
@@ -42,12 +48,15 @@ def generate_launch_description():
         ])}.items(),
     )
 
-    # RViz
-    rviz = Node(
-       package='rviz2',
-       executable='rviz2',
-       arguments=['-d', os.path.join(pkg_project_bringup, 'rviz', 'diff_drive.rviz')],
-       condition=IfCondition(LaunchConfiguration('rviz'))
+    robot_state_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher',
+        output='both',
+        parameters=[
+            {'use_sim_time': True},
+            {'robot_description': robot_desc},
+        ]
     )
 
     # Bridge
@@ -61,10 +70,20 @@ def generate_launch_description():
         output='screen'
     )
 
+    # RViz
+    rviz = Node(
+       package='rviz2',
+       executable='rviz2',
+       arguments=['-d', os.path.join(pkg_project_bringup, 'rviz', 'diff_drive.rviz')],
+       condition=IfCondition(LaunchConfiguration('rviz'))
+    )
+
+
     return LaunchDescription([
         gz_sim,
         DeclareLaunchArgument('rviz', default_value='true',
                               description='Open RViz.'),
         bridge,
+        robot_state_publisher,
         rviz
     ])
