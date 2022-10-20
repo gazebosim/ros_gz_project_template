@@ -54,11 +54,8 @@ void RosSystem::Configure(
   auto listener_topic = element->Get<std::string>("listener_topic", "listener").first;
 
   node_ = rclcpp::Node::make_shared(node_name);
-
-  listener_sub_ = node_->create_subscription<std_msgs::msg::String>(
-    listener_topic,
+  listener_sub_ = node_->create_subscription<std_msgs::msg::String>(listener_topic,
     1, std::bind(&RosSystem::OnStringMessage, this, std::placeholders::_1));
-
   talker_pub_ = node_->create_publisher<std_msgs::msg::String>(talker_topic, 1);
 }
 

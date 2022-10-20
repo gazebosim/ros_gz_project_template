@@ -21,6 +21,9 @@
 // All others will depend on what your plugin does.
 #include <gz/sim/System.hh>
 
+#include <rclcpp/executor.hpp>
+#include <rclcpp/executors/multi_threaded_executor.hpp>
+#include <rclcpp/executors/static_single_threaded_executor.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/string.hpp>
 
