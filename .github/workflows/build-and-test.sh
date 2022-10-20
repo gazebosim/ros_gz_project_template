@@ -37,5 +37,5 @@ colcon build --event-handlers console_direct+
 source $COLCON_WS/install/setup.bash
 
 # Test all packages
-colcon test --event-handlers console_direct+
+colcon test --packages-select-regex=ros_gz_example --event-handlers console_direct+
 colcon test-result
