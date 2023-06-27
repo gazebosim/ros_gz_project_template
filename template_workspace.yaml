@@ -8,7 +8,7 @@ repositories:
   ros_gz:
     type: git
     url: https://github.com/gazebosim/ros_gz.git
-    version: ros2
+    version: humble
   sdformat_urdf:
     type: git
     url: https://github.com/ros/sdformat_urdf.git
