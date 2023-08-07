@@ -75,4 +75,4 @@ On Ubuntu Jammy
 
 1. Launch the simulation
 
-    `ros2 launch ros_gz_example_bringup example.launch.py`
+    `ros2 launch ros_gz_example_bringup diff_drive.launch.py`
