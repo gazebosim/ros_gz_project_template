@@ -27,6 +27,9 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
+    # Configure ROS nodes for launch
+
+    # Setup project paths
     pkg_project_bringup = get_package_share_directory('ros_gz_example_bringup')
     pkg_project_gazebo = get_package_share_directory('ros_gz_example_gazebo')
     pkg_project_description = get_package_share_directory('ros_gz_example_description')
@@ -37,6 +40,7 @@ def generate_launch_description():
     with open(sdf_file, 'r') as infp:
         robot_desc = infp.read()
 
+    # Setup to launch the simulator and Gazebo world
     gz_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')),
@@ -47,6 +51,7 @@ def generate_launch_description():
         ])}.items(),
     )
 
+    # Takes the description and joint angles as inputs and publishes the 3D poses of the robot links
     robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
@@ -58,7 +63,7 @@ def generate_launch_description():
         ]
     )
 
-    # RViz
+    # Visualize in RViz
     rviz = Node(
        package='rviz2',
        executable='rviz2',
@@ -66,7 +71,7 @@ def generate_launch_description():
        condition=IfCondition(LaunchConfiguration('rviz'))
     )
 
-    # Bridge
+    # Bridge ROS topics and Gazebo messages for establishing communication
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',

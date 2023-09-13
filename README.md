@@ -16,7 +16,7 @@ A template project integrating ROS 2 and Gazebo simulator.
 ### Requirements
 
 1. Choose a ROS and Gazebo combination  https://gazebosim.org/docs/harmonic/ros_installation
-   Note: Ig you're using a specific and unsupported Gazebo version with ROS 2, you might need to set the `GZ_VERSION` environment variable, for example:
+   Note: If you're using a specific and unsupported Gazebo version with ROS 2, you might need to set the `GZ_VERSION` environment variable, for example:
 
     ```bash
     export GZ_VERSION=garden
