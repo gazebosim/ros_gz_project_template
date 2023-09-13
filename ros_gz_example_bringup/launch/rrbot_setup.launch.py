@@ -1,4 +1,4 @@
-# Copyright 2022 Open Source Robotics Foundation, Inc.
+# Copyright 2023 Open Source Robotics Foundation, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,24 +31,21 @@ def generate_launch_description():
 
     # Setup project paths
     pkg_project_bringup = get_package_share_directory('ros_gz_example_bringup')
-    pkg_project_gazebo = get_package_share_directory('ros_gz_example_gazebo')
     pkg_project_description = get_package_share_directory('ros_gz_example_description')
-    pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
 
     # Load the SDF file from "description" package
-    sdf_file  =  os.path.join(pkg_project_description, 'models', 'diff_drive', 'model.sdf')
+    sdf_file  =  os.path.join(pkg_project_description, 'models', 'rrbot', 'model.sdf')
     with open(sdf_file, 'r') as infp:
         robot_desc = infp.read()
 
-    # Setup to launch the simulator and Gazebo world
-    gz_sim = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')),
-        launch_arguments={'gz_args': PathJoinSubstitution([
-            pkg_project_gazebo,
-            'worlds',
-            'diff_drive.sdf'
-        ])}.items(),
+    # For publishing and controlling the robot pose, we need joint states of the robot
+    # Configure the robot model by adjusting the joint angles using the GUI slider
+    joint_state_publisher_gui = Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        name='joint_state_publisher_gui',
+        arguments=[sdf_file],
+        output=['screen']
     )
 
     # Takes the description and joint angles as inputs and publishes the 3D poses of the robot links
@@ -67,26 +64,14 @@ def generate_launch_description():
     rviz = Node(
        package='rviz2',
        executable='rviz2',
-       arguments=['-d', os.path.join(pkg_project_bringup, 'config', 'diff_drive.rviz')],
+       arguments=['-d', os.path.join(pkg_project_bringup, 'config', 'rrbot.rviz')],
        condition=IfCondition(LaunchConfiguration('rviz'))
     )
 
-    # Bridge ROS topics and Gazebo messages for establishing communication
-    bridge = Node(
-        package='ros_gz_bridge',
-        executable='parameter_bridge',
-        parameters=[{
-            'config_file': os.path.join(pkg_project_bringup, 'config', 'ros_gz_example_bridge.yaml'),
-            'qos_overrides./tf_static.publisher.durability': 'transient_local',
-        }],
-        output='screen'
-    )
-
     return LaunchDescription([
-        gz_sim,
         DeclareLaunchArgument('rviz', default_value='true',
                               description='Open RViz.'),
-        bridge,
+        joint_state_publisher_gui,
         robot_state_publisher,
         rviz
     ])
