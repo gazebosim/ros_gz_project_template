@@ -1,2 +1,3 @@
 prepend-non-duplicate;GZ_SIM_RESOURCE_PATH;share/@PROJECT_NAME@/worlds
 prepend-non-duplicate;GZ_SIM_SYSTEM_PLUGIN_PATH;lib/@PROJECT_NAME@/
+prepend-non-duplicate;GZ_DESCRIPTOR_PATH;share/gz/protos/

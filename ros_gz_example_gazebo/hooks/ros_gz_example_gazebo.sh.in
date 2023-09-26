@@ -1,2 +1,3 @@
 ament_prepend_unique_value GZ_SIM_RESOURCE_PATH "$AMENT_CURRENT_PREFIX/share/@PROJECT_NAME@/worlds"
 ament_prepend_unique_value GZ_SIM_PLUGIn_PATH "$AMENT_CURRENT_PREFIX/lib/@PROJECT_NAME@"
+ament_prepend_unique_value GZ_DESCRIPTOR_PATH "$AMENT_CURRENT_PREFIX/share/gz/protos/"
