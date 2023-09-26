@@ -24,6 +24,10 @@
 // in the cc file, like it's done here.
 #include <gz/plugin/Register.hh>
 
+#include <ros_gz_example_gazebo/msgs/foobar.pb.h>
+
+#include <gz/transport/Node.hh>
+
 // Don't forget to include the plugin's header.
 #include "ros_gz_example_gazebo/FullSystem.hh"
 
@@ -39,8 +43,22 @@ GZ_ADD_PLUGIN(
     ros_gz_example_gazebo::FullSystem::ISystemReset
 )
 
-namespace ros_gz_example_gazebo 
+namespace ros_gz_example_gazebo
 {
+
+class FullSystem::Implementation
+{
+  public: gz::transport::Node node;
+
+  public: gz::transport::Node::Publisher pub;
+};
+
+FullSystem::FullSystem()
+: dataPtr(gz::utils::MakeUniqueImpl<Implementation>())
+{
+  this->dataPtr->pub =
+    this->dataPtr->node.Advertise<ros_gz_example_gazebo::msgs::FoobarStamped>("foobar");
+}
 
 void FullSystem::Configure(const gz::sim::Entity &_entity,
                 const std::shared_ptr<const sdf::Element> &_element,
@@ -56,6 +74,14 @@ void FullSystem::PreUpdate(const gz::sim::UpdateInfo &_info,
   if (!_info.paused && _info.iterations % 1000 == 0)
   {
     gzdbg << "ros_gz_example_gazebo::FullSystem::PreUpdate" << std::endl;
+
+    ros_gz_example_gazebo::msgs::FoobarStamped msg;
+    auto *header = msg.mutable_header();
+    auto simTime = gz::math::durationToSecNsec(_info.simTime);
+    header->mutable_stamp()->set_sec(simTime.first);
+    header->mutable_stamp()->set_nsec(simTime.second);
+    msg.mutable_foobar()->set_value(_info.iterations % 1000);
+    this->dataPtr->pub.Publish(msg);
   }
 }
 
@@ -69,7 +95,7 @@ void FullSystem::Update(const gz::sim::UpdateInfo &_info,
 }
 
 void FullSystem::PostUpdate(const gz::sim::UpdateInfo &_info,
-                            const gz::sim::EntityComponentManager &_ecm) 
+                            const gz::sim::EntityComponentManager &_ecm)
 {
   if (!_info.paused && _info.iterations % 1000 == 0)
   {

@@ -23,6 +23,8 @@
 #include <gz/sim/EventManager.hh>
 #include <gz/sim/System.hh>
 
+#include <gz/utils/ImplPtr.hh>
+
 namespace ros_gz_example_gazebo
 {
   // This is the main plugin's class. It must inherit from System and at least
@@ -38,8 +40,11 @@ namespace ros_gz_example_gazebo
     public gz::sim::ISystemPostUpdate,
     public gz::sim::ISystemReset
   {
-    // Plugins inheriting ISystemConfigure must implement the Configure 
-    // callback. This is called when a system is initially loaded. 
+    // Construtor
+    public: FullSystem();
+
+    // Plugins inheriting ISystemConfigure must implement the Configure
+    // callback. This is called when a system is initially loaded.
     // The _entity variable contains the entity that the system is attached to
     // The _element variable contains the sdf Element with custom configuration
     // The _ecm provides an interface to all entities and components
@@ -74,10 +79,12 @@ namespace ros_gz_example_gazebo
     public: void PostUpdate(const gz::sim::UpdateInfo &_info,
                 const gz::sim::EntityComponentManager &_ecm) override;
 
-    // Plugins inheriting ISystemReset must implement the Reset callback. 
+    // Plugins inheriting ISystemReset must implement the Reset callback.
     // This is called when simulation is reset/rewound to initial conditions.
     public: void Reset(const gz::sim::UpdateInfo &_info,
                 gz::sim::EntityComponentManager &_ecm) override;
+
+    GZ_UTILS_UNIQUE_IMPL_PTR(dataPtr)
   };
 }
 #endif

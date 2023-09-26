@@ -14,9 +14,30 @@ find_package(gz-plugin2 REQUIRED COMPONENTS register)
 set(GZ_PLUGIN_VER ${gz-plugin2_VERSION_MAJOR})
 find_package(gz-common5 REQUIRED COMPONENTS profiler)
 set(GZ_COMMON_VER ${gz-common5_VERSION_MAJOR})
-find_package(gz-sim7 REQUIRED)
-set(GZ_SIM_VER ${gz-sim7_VERSION_MAJOR})
 
+find_package(gz-sim8 REQUIRED)
+set(GZ_SIM_VER ${gz-sim8_VERSION_MAJOR})
+
+find_package(gz-msgs10 REQUIRED)
+set(GZ_MSGS_VER ${gz-msgs10_VERSION_MAJOR})
+
+# Example of custom messages that depend on gz.msgs
+set(MSGS_PROTOS
+   ${CMAKE_CURRENT_SOURCE_DIR}/proto/ros_gz_example_gazebo/msgs/foobar.proto
+)
+
+gz_msgs_generate_messages(
+  # The cmake target to be generated for libraries/executables to link
+  TARGET msgs
+  # The protobuf package to generate (Typically based on the path)
+  PROTO_PACKAGE "ros_gz_example_gazebo.msgs"
+  # The path to the base directory of the proto files
+  # All import paths should be relative to this (eg gz/custom_msgs/vector3d.proto)
+  MSGS_PATH ${CMAKE_CURRENT_SOURCE_DIR}/proto
+  # List of proto files to generate
+  MSGS_PROTOS ${MSGS_PROTOS}
+  DEPENDENCIES gz-msgs${GZ_MSGS_VER}::gz-msgs${GZ_MSGS_VER}
+)
 
 # Following 'add_library' directive defines a library target named 'BasicSystem'.
 # The 'SHARED' keyword indicates that a shared library should be compiled, and
@@ -34,11 +55,11 @@ target_include_directories(
   BasicSystem PRIVATE include
 )
 
-# Following 'target_link_libraries' directive specifies to use the 
+# Following 'target_link_libraries' directive specifies to use the
 # gz-sim library when linking the 'BasicSystem' target.
 # The 'PRIVATE' keyword stipulates that the gz-sim library will not
 # automatically be included if the 'BasicSystem' target were to
-# be linked to anoter target. 
+# be linked to anoter target.
 # ${GZ_SIM_VER} is substituted by the value that is was set to above.
 target_link_libraries(BasicSystem PRIVATE
   gz-sim${GZ_SIM_VER}::gz-sim${GZ_SIM_VER})
@@ -55,7 +76,10 @@ target_include_directories(
 )
 
 target_link_libraries(FullSystem PRIVATE
-  gz-sim${GZ_SIM_VER}::gz-sim${GZ_SIM_VER})
+  gz-sim${GZ_SIM_VER}::gz-sim${GZ_SIM_VER}
+  ros_gz_example_gazebo-msgs
+)
+
 
 
 
