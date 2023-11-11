@@ -29,7 +29,6 @@ class FullSystem:
     public gz::sim::ISystemPreUpdate,
     public gz::sim::ISystemUpdate,
     public gz::sim::ISystemPostUpdate,
-    public gz::sim::ISystemReset
 ```
 
 See the comments in the source files for further documentation.

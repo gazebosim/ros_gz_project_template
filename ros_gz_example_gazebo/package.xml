@@ -9,6 +9,9 @@
   <author>Michael Carroll</author>
   <author>Dharini Dutia</author>
 
+  <depend>gz-sim6</depend>
+  <depend>gz-cmake2</depend>
+
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <test_depend>ament_lint_auto</test_depend>

@@ -36,7 +36,6 @@ namespace ros_gz_example_gazebo
     public gz::sim::ISystemPreUpdate,
     public gz::sim::ISystemUpdate,
     public gz::sim::ISystemPostUpdate,
-    public gz::sim::ISystemReset
   {
     // Plugins inheriting ISystemConfigure must implement the Configure 
     // callback. This is called when a system is initially loaded. 
@@ -74,10 +73,6 @@ namespace ros_gz_example_gazebo
     public: void PostUpdate(const gz::sim::UpdateInfo &_info,
                 const gz::sim::EntityComponentManager &_ecm) override;
 
-    // Plugins inheriting ISystemReset must implement the Reset callback. 
-    // This is called when simulation is reset/rewound to initial conditions.
-    public: void Reset(const gz::sim::UpdateInfo &_info,
-                gz::sim::EntityComponentManager &_ecm) override;
   };
 }
 #endif

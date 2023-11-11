@@ -36,7 +36,6 @@ GZ_ADD_PLUGIN(
     ros_gz_example_gazebo::FullSystem::ISystemPreUpdate,
     ros_gz_example_gazebo::FullSystem::ISystemUpdate,
     ros_gz_example_gazebo::FullSystem::ISystemPostUpdate,
-    ros_gz_example_gazebo::FullSystem::ISystemReset
 )
 
 namespace ros_gz_example_gazebo 
@@ -77,9 +76,4 @@ void FullSystem::PostUpdate(const gz::sim::UpdateInfo &_info,
   }
 }
 
-void FullSystem::Reset(const gz::sim::UpdateInfo &_info,
-                       gz::sim::EntityComponentManager &_ecm)
-{
-  gzdbg << "ros_gz_example_gazebo::FullSystem::Reset" << std::endl;
-}
 }  // namespace ros_gz_example_gazeba

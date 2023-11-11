@@ -19,7 +19,7 @@ A template project integrating ROS 2 and Gazebo simulator.
    Note: If you're using a specific and unsupported Gazebo version with ROS 2, you might need to set the `GZ_VERSION` environment variable, for example:
 
     ```bash
-    export GZ_VERSION=garden
+    export GZ_VERSION=fortress
     ```
 
 1. Install necessary tools
@@ -50,6 +50,7 @@ Or start by creating a workspace and cloning the template repository:
     sudo rosdep init
     rosdep update
     rosdep install --from-paths src --ignore-src -r -i -y --rosdistro <ROS_DISTRO>
+    sudo apt install ros-<ROS_DISTRO>-ros-gz && ros-<ROS_DISTRO>-sdformat-urdf
     ```
 
 1. Build the project
