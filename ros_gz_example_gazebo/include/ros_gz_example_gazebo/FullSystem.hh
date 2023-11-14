@@ -35,7 +35,7 @@ namespace ros_gz_example_gazebo
     public gz::sim::ISystemConfigure,
     public gz::sim::ISystemPreUpdate,
     public gz::sim::ISystemUpdate,
-    public gz::sim::ISystemPostUpdate,
+    public gz::sim::ISystemPostUpdate
   {
     // Plugins inheriting ISystemConfigure must implement the Configure 
     // callback. This is called when a system is initially loaded. 

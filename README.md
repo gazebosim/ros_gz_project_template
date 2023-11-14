@@ -50,7 +50,7 @@ Or start by creating a workspace and cloning the template repository:
     sudo rosdep init
     rosdep update
     rosdep install --from-paths src --ignore-src -r -i -y --rosdistro <ROS_DISTRO>
-    sudo apt install ros-<ROS_DISTRO>-ros-gz && ros-<ROS_DISTRO>-sdformat-urdf
+    sudo apt install ros-<ROS_DISTRO>-ros-gz ros-<ROS_DISTRO>-sdformat-urdf
     ```
 
 1. Build the project
