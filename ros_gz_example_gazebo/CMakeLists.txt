@@ -8,6 +8,7 @@ project(ros_gz_example_gazebo)
 # The 'set' directive defines a variable (e.g. 'GZ_PLUGIN_VER').
 # Such variables can be used lateron in the CMakeLists.txt file.
 find_package(ament_cmake REQUIRED)
+find_package(ros_gz_example_description REQUIRED)
 
 find_package(ignition-cmake2 REQUIRED)
 find_package(ignition-plugin1 REQUIRED COMPONENTS register)

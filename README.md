@@ -13,9 +13,12 @@ A template project integrating ROS 2 and Gazebo simulator.
 
 
 ## Install
+
+For using the template with Gazebo Fortress switch to the `fortress` branch of this repository, otherwise use the default branch `main` for Gazebo Harmonic onwards.
+
 ### Requirements
 
-1. Choose a ROS and Gazebo combination  https://gazebosim.org/docs/harmonic/ros_installation
+1. Choose a ROS and Gazebo combination https://gazebosim.org/docs/latest/ros_installation
    Note: If you're using a specific and unsupported Gazebo version with ROS 2, you might need to set the `GZ_VERSION` environment variable, for example:
 
     ```bash
@@ -50,7 +53,6 @@ Or start by creating a workspace and cloning the template repository:
     sudo rosdep init
     rosdep update
     rosdep install --from-paths src --ignore-src -r -i -y --rosdistro <ROS_DISTRO>
-    sudo apt install ros-<ROS_DISTRO>-ros-gz ros-<ROS_DISTRO>-sdformat-urdf
     ```
 
 1. Build the project
