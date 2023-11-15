@@ -46,4 +46,4 @@ void BasicSystem::PostUpdate(const gz::sim::UpdateInfo &_info,
   }
 }
 
-}  // namespace ros_gz_example_gazeba
+}  // namespace ros_gz_example_gazebo
