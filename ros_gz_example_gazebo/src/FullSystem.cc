@@ -82,4 +82,4 @@ void FullSystem::Reset(const gz::sim::UpdateInfo &_info,
 {
   gzdbg << "ros_gz_example_gazebo::FullSystem::Reset" << std::endl;
 }
-}  // namespace ros_gz_example_gazeba
+}  // namespace ros_gz_example_gazebo
