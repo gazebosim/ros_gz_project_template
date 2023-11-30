@@ -8,15 +8,15 @@ project(ros_gz_example_gazebo)
 # The 'set' directive defines a variable (e.g. 'GZ_PLUGIN_VER').
 # Such variables can be used lateron in the CMakeLists.txt file.
 find_package(ament_cmake REQUIRED)
+find_package(ros_gz_example_description REQUIRED)
 
-find_package(gz-cmake3 REQUIRED)
-find_package(gz-plugin2 REQUIRED COMPONENTS register)
-set(GZ_PLUGIN_VER ${gz-plugin2_VERSION_MAJOR})
-find_package(gz-common5 REQUIRED COMPONENTS profiler)
-set(GZ_COMMON_VER ${gz-common5_VERSION_MAJOR})
-find_package(gz-sim7 REQUIRED)
-set(GZ_SIM_VER ${gz-sim7_VERSION_MAJOR})
-
+find_package(ignition-cmake2 REQUIRED)
+find_package(ignition-plugin1 REQUIRED COMPONENTS register)
+set(GZ_PLUGIN_VER ${ignition-plugin1_VERSION_MAJOR})
+find_package(ignition-common4 REQUIRED COMPONENTS profiler)
+set(GZ_COMMON_VER ${ignition-common4_VERSION_MAJOR})
+find_package(ignition-gazebo6 REQUIRED)
+set(GZ_SIM_VER ${ignition-gazebo6_VERSION_MAJOR})
 
 # Following 'add_library' directive defines a library target named 'BasicSystem'.
 # The 'SHARED' keyword indicates that a shared library should be compiled, and
@@ -41,7 +41,7 @@ target_include_directories(
 # be linked to anoter target. 
 # ${GZ_SIM_VER} is substituted by the value that is was set to above.
 target_link_libraries(BasicSystem PRIVATE
-  gz-sim${GZ_SIM_VER}::gz-sim${GZ_SIM_VER})
+  ignition-gazebo${GZ_SIM_VER}::ignition-gazebo${GZ_SIM_VER})
 
 
 # Following directives similarly specify another target: 'FullSystem'.
@@ -55,7 +55,7 @@ target_include_directories(
 )
 
 target_link_libraries(FullSystem PRIVATE
-  gz-sim${GZ_SIM_VER}::gz-sim${GZ_SIM_VER})
+  ignition-gazebo${GZ_SIM_VER}::ignition-gazebo${GZ_SIM_VER})
 
 
 
