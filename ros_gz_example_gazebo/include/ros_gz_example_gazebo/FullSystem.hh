@@ -25,6 +25,10 @@
 
 namespace ros_gz_example_gazebo
 {
+  // This is the a forward declaration for a private data member
+  // class used to store data during plugin operation. 
+  class FullSystemPrivate;
+
   // This is the main plugin's class. It must inherit from System and at least
   // one other interface.
   // Here we use `ISystemPostUpdate`, which is used to get results after
@@ -38,6 +42,12 @@ namespace ros_gz_example_gazebo
     public gz::sim::ISystemPostUpdate,
     public gz::sim::ISystemReset
   {
+    // Class constructor
+    public: FullSystem();
+
+    // Class destructor
+    public: ~FullSystem() override;
+
     // Plugins inheriting ISystemConfigure must implement the Configure 
     // callback. This is called when a system is initially loaded. 
     // The _entity variable contains the entity that the system is attached to
@@ -78,6 +88,10 @@ namespace ros_gz_example_gazebo
     // This is called when simulation is reset/rewound to initial conditions.
     public: void Reset(const gz::sim::UpdateInfo &_info,
                 gz::sim::EntityComponentManager &_ecm) override;
+
+    // A private unique pointer is created of type `FullSystemPrivate`.
+    // This can be used to store valures during plugin operation.
+    private: std::unique_ptr<FullSystemPrivate> dataPtr;
   };
 }
 #endif
