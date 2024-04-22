@@ -32,15 +32,16 @@ For using the template with Gazebo Fortress switch to the `fortress` branch of t
     ```
 
 ### Use as template
+
 Directly `Use this template` and create your project repository on Github.
 
-Or start by creating a workspace and cloning the template repository:
+Or start by creating a workspace.
+Use VCS to import `ros_gz_project_template` as well as the dependencies that must be built from source.
 
    ```bash
    mkdir -p ~/template_ws/src
-   cd ~/template_ws/src
-   wget https://raw.githubusercontent.com/gazebosim/ros_gz_project_template/main/template_workspace.yaml
-   vcs import < template_workspace.yaml
+   cd ~/template_ws
+   vcs import --input https://raw.githubusercontent.com/gazebosim/ros_gz_project_template/main/template_workspace.yaml src
    ```
 
 ## Usage
@@ -49,22 +50,22 @@ Or start by creating a workspace and cloning the template repository:
 
     ```bash
     cd ~/template_ws
-    source /opt/ros/<ROS_DISTRO>/setup.bash
+    source /opt/ros/humble/setup.bash
     sudo rosdep init
     rosdep update
-    rosdep install --from-paths src --ignore-src -r -i -y --rosdistro <ROS_DISTRO>
+    rosdep install --from-paths src --ignore-src -i -y
     ```
 
 1. Build the project
 
     ```bash
-    colcon build --cmake-args -DBUILD_TESTING=ON
+    colcon build
     ```
 
 1. Source the workspace
 
     ```bash
-    . ~/template_ws/install/setup.sh
+    source install/setup.bash
     ```
 
 1. Launch the simulation
