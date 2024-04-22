@@ -42,6 +42,26 @@ GZ_ADD_PLUGIN(
 namespace ros_gz_example_gazebo 
 {
 
+class FullSystemPrivate
+{
+  // This class can be used to define internal variables, 
+  // functions and subscription callbacks.
+  // Store values extracted from the SDF.
+  // Store Gazebo transport information including 
+  // publishers and subscribers.
+};
+
+FullSystem::FullSystem()
+: dataPtr(std::make_unique<FullSystemPrivate>())
+{
+  // Do nothing
+}
+
+FullSystem::~FullSystem()
+{
+  // Do nothing
+}
+
 void FullSystem::Configure(const gz::sim::Entity &_entity,
                 const std::shared_ptr<const sdf::Element> &_element,
                 gz::sim::EntityComponentManager &_ecm,
