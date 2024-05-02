@@ -12,4 +12,4 @@ repositories:
   sdformat_urdf:
     type: git
     url: https://github.com/ros/sdformat_urdf.git
-    version: ros2
+    version: humble
