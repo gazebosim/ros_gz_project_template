@@ -76,9 +76,9 @@
       </link>
     </model>
 
-    <model name="diff_drive">
+    <model name="spot">
       <self_collide>true</self_collide>
-      <pose>0 0 0.35 0 0 0</pose>
+      <pose>0 0 0.69 0 0 0</pose>
       <include merge="true">
         <uri>package://ros_gz_example_description/models/diff_drive</uri>
       </include>

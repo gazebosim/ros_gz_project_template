@@ -1,21 +1,21 @@
 Panels:
   - Class: rviz_common/Displays
-    Help Height: 78
+    Help Height: 0
     Name: Displays
     Property Tree Widget:
       Expanded:
         - /Global Options1
         - /Status1
-        - /RobotModel1
-        - /RobotModel1/Status1
       Splitter Ratio: 0.5
-    Tree Height: 542
+    Tree Height: 802
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
     Expanded:
-      - /2D Goal Pose1
+      - /2D Pose Estimate1
+      - /2D Nav Goal1
       - /Publish Point1
+      - /Cam Look At Point Tool1
     Name: Tool Properties
     Splitter Ratio: 0.5886790156364441
   - Class: rviz_common/Views
@@ -24,10 +24,15 @@ Panels:
     Name: Views
     Splitter Ratio: 0.5
   - Class: rviz_common/Time
-    Experimental: false
     Name: Time
     SyncMode: 0
     SyncSource: ""
+  - Class: spot_viz/SpotControlPanel
+    Name: SpotControlPanel
+Preferences:
+  PromptSaveOnExit: true
+Toolbars:
+  toolButtonStyle: 2
 Visualization Manager:
   Class: ""
   Displays:
@@ -52,14 +57,6 @@ Visualization Manager:
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
       Collision Enabled: false
-      Description File: ""
-      Description Source: Topic
-      Description Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /robot_description
       Enabled: true
       Links:
         All Links Enabled: true
@@ -67,106 +64,293 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        link1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link3:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-      Mass Properties:
-        Inertia: false
-        Mass: false
       Name: RobotModel
+      Robot Description: robot_description
       TF Prefix: ""
       Update Interval: 0
       Value: true
       Visual Enabled: true
-    - Angle Tolerance: 0.10000000149011612
-      Class: rviz_default_plugins/Odometry
-      Covariance:
-        Orientation:
-          Alpha: 0.5
-          Color: 255; 255; 127
-          Color Style: Unique
-          Frame: Local
-          Offset: 1
-          Scale: 1
-          Value: true
-        Position:
-          Alpha: 0.30000001192092896
-          Color: 204; 51; 204
-          Scale: 1
-          Value: true
-        Value: true
+    - Class: rviz_default_plugins/TF
       Enabled: true
-      Keep: 100
-      Name: Odometry
-      Position Tolerance: 0.10000000149011612
-      Shape:
-        Alpha: 1
-        Axes Length: 1
-        Axes Radius: 0.10000000149011612
-        Color: 255; 25; 0
-        Head Length: 0.30000001192092896
-        Head Radius: 0.10000000149011612
-        Shaft Length: 1
-        Shaft Radius: 0.05000000074505806
-        Value: Arrow
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        Filter size: 10
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /diff_drive/odometry
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        body:
+          Value: true
+        c0:
+          Value: true
+        c1:
+          Value: true
+        c2:
+          Value: true
+        c3:
+          Value: true
+        c4:
+          Value: true
+        ir:
+          Value: true
+        pano:
+          Value: true
+        projected-ring:
+          Value: true
+        ptz:
+          Value: true
+        ptz-ir:
+          Value: true
+        ptz-ir-color:
+          Value: true
+        ptz-ir-overlay:
+          Value: true
+        ptz_zero:
+          Value: true
+        spot_cam_payload_frame:
+          Value: true
+        stream:
+          Value: true
+        tiled-ring:
+          Value: true
+      Marker Alpha: 1
+      Marker Scale: 0.25
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        body:
+          spot_cam_payload_frame:
+            c0:
+              {}
+            c1:
+              {}
+            c2:
+              {}
+            c3:
+              {}
+            c4:
+              {}
+            ir:
+              {}
+            pano:
+              {}
+            projected-ring:
+              {}
+            ptz:
+              {}
+            ptz-ir:
+              {}
+            ptz-ir-color:
+              {}
+            ptz-ir-overlay:
+              {}
+            ptz_zero:
+              {}
+            stream:
+              {}
+            tiled-ring:
+              {}
+      Update Interval: 0
       Value: true
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz_default_plugins/LaserScan
-      Color: 255; 255; 255
-      Color Transformer: Intensity
-      Decay Time: 0
+    - Class: rviz_default_plugins/Group
+      Displays:
+        - Alpha: 1
+          Auto Size:
+            Auto Size Factor: 1
+            Value: true
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 1.5422112941741943
+            Min Value: -13.729979515075684
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz_default_plugins/DepthCloud
+          Color: 255; 255; 255
+          Color Image Topic: ""
+          Color Transformer: AxisColor
+          Color Transport Hint: raw
+          Decay Time: 0
+          Depth Map Topic: /spot/depth/frontleft/image
+          Depth Map Transport Hint: raw
+          Enabled: true
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Min Color: 0; 0; 0
+          Name: FrontLeftDepthCloud
+          Occlusion Compensation:
+            Occlusion Time-Out: 30
+            Value: false
+          Position Transformer: XYZ
+          Queue Size: 5
+          Selectable: true
+          Size (Pixels): 3
+          Style: Flat Squares
+          Topic Filter: true
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: true
+        - Alpha: 1
+          Auto Size:
+            Auto Size Factor: 1
+            Value: true
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 2.3710060119628906
+            Min Value: -6.938358306884766
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz_default_plugins/DepthCloud
+          Color: 255; 255; 255
+          Color Image Topic: ""
+          Color Transformer: AxisColor
+          Color Transport Hint: raw
+          Decay Time: 0
+          Depth Map Topic: /spot/depth/frontright/image
+          Depth Map Transport Hint: raw
+          Enabled: true
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Min Color: 0; 0; 0
+          Name: FrontRightDepthCloud
+          Occlusion Compensation:
+            Occlusion Time-Out: 30
+            Value: false
+          Position Transformer: XYZ
+          Queue Size: 5
+          Selectable: true
+          Size (Pixels): 3
+          Style: Flat Squares
+          Topic Filter: true
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: true
+        - Alpha: 1
+          Auto Size:
+            Auto Size Factor: 1
+            Value: true
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 1.8236514329910278
+            Min Value: -2.351337194442749
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz_default_plugins/DepthCloud
+          Color: 255; 255; 255
+          Color Image Topic: ""
+          Color Transformer: AxisColor
+          Color Transport Hint: raw
+          Decay Time: 0
+          Depth Map Topic: /spot/depth/left/image
+          Depth Map Transport Hint: raw
+          Enabled: true
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Min Color: 0; 0; 0
+          Name: LeftDepthCloud
+          Occlusion Compensation:
+            Occlusion Time-Out: 30
+            Value: false
+          Position Transformer: XYZ
+          Queue Size: 5
+          Selectable: true
+          Size (Pixels): 3
+          Style: Flat Squares
+          Topic Filter: true
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: true
+        - Alpha: 1
+          Auto Size:
+            Auto Size Factor: 1
+            Value: true
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 2.603226661682129
+            Min Value: -3.571293830871582
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz_default_plugins/DepthCloud
+          Color: 255; 255; 255
+          Color Image Topic: ""
+          Color Transformer: AxisColor
+          Color Transport Hint: raw
+          Decay Time: 0
+          Depth Map Topic: /spot/depth/right/image
+          Depth Map Transport Hint: raw
+          Enabled: true
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Min Color: 0; 0; 0
+          Name: RightDepthCloud
+          Occlusion Compensation:
+            Occlusion Time-Out: 30
+            Value: false
+          Position Transformer: XYZ
+          Queue Size: 5
+          Selectable: true
+          Size (Pixels): 3
+          Style: Flat Squares
+          Topic Filter: true
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: true
+        - Alpha: 1
+          Auto Size:
+            Auto Size Factor: 1
+            Value: true
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 1.576756477355957
+            Min Value: -2.3970136642456055
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz_default_plugins/DepthCloud
+          Color: 255; 255; 255
+          Color Image Topic: ""
+          Color Transformer: AxisColor
+          Color Transport Hint: raw
+          Decay Time: 0
+          Depth Map Topic: /spot/depth/back/image
+          Depth Map Transport Hint: raw
+          Enabled: true
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Min Color: 0; 0; 0
+          Name: RearDepthCloud
+          Occlusion Compensation:
+            Occlusion Time-Out: 30
+            Value: false
+          Position Transformer: XYZ
+          Queue Size: 5
+          Selectable: true
+          Size (Pixels): 3
+          Style: Flat Squares
+          Topic Filter: true
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: true
       Enabled: true
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: -999999
-      Min Color: 0; 0; 0
-      Min Intensity: 999999
-      Name: LaserScan
-      Position Transformer: XYZ
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.009999999776482582
-      Style: Flat Squares
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        Filter size: 10
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /diff_drive/scan
-      Use Fixed Frame: true
-      Use rainbow: true
-      Value: true
+      Name: DepthClouds
+    - Class: rviz_default_plugins/Image
+      Enabled: false
+      Image Topic: /spot/cam/image
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Spot CAM image
+      Normalize Range: true
+      Queue Size: 2
+      Transport Hint: compressed
+      Unreliable: false
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: link1
+    Default Light: true
+    Fixed Frame: body
     Frame Rate: 30
   Name: root
   Tools:
@@ -176,67 +360,56 @@ Visualization Manager:
     - Class: rviz_default_plugins/Select
     - Class: rviz_default_plugins/FocusCamera
     - Class: rviz_default_plugins/Measure
-      Line color: 128; 128; 0
     - Class: rviz_default_plugins/SetInitialPose
-      Covariance x: 0.25
-      Covariance y: 0.25
-      Covariance yaw: 0.06853891909122467
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /initialpose
+      Theta std deviation: 0.2617993950843811
+      Topic: /initialpose
+      X std deviation: 0.5
+      Y std deviation: 0.5
     - Class: rviz_default_plugins/SetGoal
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /goal_pose
+      Topic: /spot/go_to_pose
     - Class: rviz_default_plugins/PublishPoint
       Single click: true
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /clicked_point
-  Transformation:
-    Current:
-      Class: rviz_default_plugins/TF
+      Topic: /clicked_point
+    - Class: spot_viz/CamLookAtPointTool
+      Hold: false
+      Image width: 0
+      Zoom level: 1
   Value: true
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 10.637351989746094
+      Distance: 4.1843156814575195
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
+      Field of View: 0.7853981852531433
       Focal Point:
         X: 0
         Y: 0
         Z: 0
-      Focal Shape Fixed Size: true
+      Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.48539823293685913
+      Pitch: 0.685398280620575
       Target Frame: <Fixed Frame>
-      Value: Orbit (rviz)
-      Yaw: 0.06039798632264137
+      Yaw: 1.0853943824768066
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 833
+  Height: 1016
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd000000040000000000000156000002a7fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b000002a7000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f000002a7fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003b000002a7000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000003c00000003efc0100000002fb0000000800540069006d00650100000000000003c00000025300fffffffb0000000800540069006d006501000000000000045000000000000000000000014f000002a700000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000001680000035ffc0200000012fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d0000035f000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb000000280020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000000000000000fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e006700000002300000018e0000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000000000000000fb0000000a0049006d00610067006501000002f4000000ca0000000000000000fb0000000a0049006d00610067006501000002f4000000ca0000000000000000fb0000000a0049006d006100670065000000013f000000660000000000000000fb0000000a0049006d0061006700650000000164000000940000000000000000fb0000000a0049006d00610067006500000001a3000000e80000000000000000fc00000227000001970000000000fffffffa000000000100000002fb0000000a0049006d0061006700650000000000ffffffff0000000000000000fb0000000a0049006d0061006700650000000000000002ad0000000000000000fb0000001c00530070006f0074002000430041004d00200069006d00610067006500000002d4000000c80000001600ffffff00000001000001b80000035ffc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fc0000003d0000035f000002d60100001cfa000000000100000002fb0000002000530070006f00740043006f006e00740072006f006c00500061006e0065006c0100000000ffffffff000001b800fffffffb0000000a0056006900650077007301000005c8000001b80000010000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000078000000039fc0100000002fb0000000800540069006d0065010000000000000780000003bc00fffffffb0000000800540069006d00650100000000000004500000000000000000000004540000035f00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
+    collapsed: false
+  Spot CAM image:
+    collapsed: false
+  SpotControlPanel:
     collapsed: false
   Time:
     collapsed: false
@@ -244,6 +417,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: false
-  Width: 960
-  X: 960
-  Y: 0
+  Width: 1920
+  X: 0
+  Y: 27
