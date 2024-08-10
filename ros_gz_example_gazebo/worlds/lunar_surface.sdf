@@ -1,0 +1,108 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <!-- Gravity -->
+    <physics type="ode">
+      <gravity>0 0 -1.6350</gravity> <!-- 1/6 of 9.80665 -->
+    </physics>
+    <!-- A hightmap plane -->
+    <include>
+      <uri>model://apollo15_landing_site_1000x1000</uri>
+    </include>
+    <!-- Starry sky -->
+    <scene>
+      <ambient>0.0 0.0 0.0 1.0</ambient>
+      <background>0.0 0.0 0.0 1</background>
+      <grid>false</grid>
+      <sky>
+        <time>13</time>
+        <sunrise>12</sunrise>
+        <sunset>12</sunset>
+        <clouds>
+          <humidity>0</humidity>
+        </clouds>
+      </sky>
+      <shadows>1</shadows>
+    </scene>
+
+    <light name='sun1' type="directional" >
+      <cast_shadows>1</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.9 0.9 0.9 1</diffuse>
+      <specular>0.0 0.0 0.0 1</specular>
+      <attenuation>
+        <range>100</range>
+        <constant>1</constant>
+      </attenuation>
+      <direction>-1.0 1.0 -1.0</direction>
+    </light>
+    <light name='sun2' type="directional" >
+      <cast_shadows>1</cast_shadows>
+      <pose>1 0 10 0 0 0</pose>
+      <diffuse>0.9 0.9 0.9 1</diffuse>
+      <specular>0.0 0.0 0.0 1</specular>
+      <attenuation>
+        <range>100</range>
+        <constant>1</constant>
+      </attenuation>
+      <direction>-1.0 1.0 -1.0</direction>
+    </light>
+    <light name='sun3' type="directional" >
+      <cast_shadows>1</cast_shadows>
+      <pose>0 1 10 0 0 0</pose>
+      <diffuse>0.9 0.9 0.9 1</diffuse>
+      <specular>0.0 0.0 0.0 1</specular>
+      <attenuation>
+        <range>100</range>
+        <constant>1</constant>
+      </attenuation>
+      <direction>-1.0 1.0 -1.0</direction>
+    </light>
+    <light name='sun4' type="directional" >
+      <cast_shadows>1</cast_shadows>
+      <pose>1 1 10 0 0 0</pose>
+      <diffuse>0.9 0.9 0.9 1</diffuse>
+      <specular>0.0 0.0 0.0 1</specular>
+      <attenuation>
+        <range>100</range>
+        <constant>1</constant>
+      </attenuation>
+      <direction>-1.0 1.0 -1.0</direction>
+    </light>
+    <!-- <gui> -->
+    <!--  <camera name="camera_world_main"> -->
+    <!--    <pose>57 15 1 0 0.05 1.4</pose> -->
+    <!--  </camera> -->
+    <!-- </gui> -->
+
+     <!-- spot model, added by diya 8/10-->
+    <model name="spot">
+      <self_collide>true</self_collide>
+      <pose>0 0 0.69 0 0 0</pose>
+      <include merge="true">
+        <uri>package://ros_gz_example_description/models/diff_drive</uri>
+      </include>
+
+      <plugin
+        filename="ignition-gazebo-joint-state-publisher-system"
+        name="ignition::gazebo::systems::JointStatePublisher">
+      </plugin>
+
+      <plugin
+        filename="ignition-gazebo-pose-publisher-system"
+        name="ignition::gazebo::systems::PosePublisher">
+        <publish_link_pose>true</publish_link_pose>
+        <use_pose_vector_msg>true</use_pose_vector_msg>
+        <static_publisher>true</static_publisher>
+        <static_update_frequency>1</static_update_frequency>
+      </plugin>
+
+      <plugin
+        filename="ignition-gazebo-odometry-publisher-system"
+        name="ignition::gazebo::systems::OdometryPublisher">
+        <odom_frame>diff_drive/odom</odom_frame>
+        <robot_base_frame>diff_drive</robot_base_frame>
+      </plugin>
+    </model>
+  </world>
+</sdf>
