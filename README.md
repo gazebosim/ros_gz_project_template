@@ -1,11 +1,11 @@
 # ros_gz_project_template
-A template project integrating ROS 2 and Gazebo simulator.
+A template project integrating ROS 2 and Gazebo simulator. Edited by Diya Agarwal, Caltech '27 (Mechanical Engineering + Robotics) for Summer Undegraduate Research Fellowship (SURF) at Florida International University (FIU) in summer 2024. Implementing this template for simulating the Boston Dynamics Spot robot on a lunar surface to observe its movement in rough terrain and low gravity systems.
 
 ## Included packages
 
-* `ros_gz_example_description` - holds the sdf description of the simulated system and any other assets.
+* `ros_gz_example_description` - holds the sdf description of the simulated system and any other assets. Includes the description of the Spot robot.
 
-* `ros_gz_example_gazebo` - holds gazebo specific code and configurations. Namely this is where systems end up.
+* `ros_gz_example_gazebo` - holds gazebo specific code and configurations. Namely this is where systems end up. Includes the world(s) that the robot will interact with.
 
 * `ros_gz_example_application` - holds ros2 specific code and configurations.
 
