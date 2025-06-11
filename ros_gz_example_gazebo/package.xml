@@ -10,7 +10,11 @@
   <author>Dharini Dutia</author>
 
   <depend>ros_gz_example_description</depend>
-
+  <depend>gz_sim_vendor</depend>
+  <depend>gz_cmake_vendor</depend>
+  <depend>gz_plugin_vendor</depend>
+  <depend>gz_common_vendor</depend>
+ 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <test_depend>ament_lint_auto</test_depend>
