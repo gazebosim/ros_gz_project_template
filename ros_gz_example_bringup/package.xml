@@ -11,6 +11,8 @@
 
   <depend>joint_state_publisher_gui</depend>
 
+  <depend>ros_gz</depend>
+  <depend>sdformat_urdf</depend>
   <depend>ros_gz_example_description</depend>
   <depend>ros_gz_example_gazebo</depend>
 

@@ -19,11 +19,13 @@ For using the template with Gazebo Fortress switch to the `fortress` branch of t
 ### Requirements
 
 1. Choose a ROS and Gazebo combination https://gazebosim.org/docs/latest/ros_installation
+
    Note: If you're using a specific and unsupported Gazebo version with ROS 2, you might need to set the `GZ_VERSION` environment variable, for example:
 
     ```bash
     export GZ_VERSION=harmonic
     ```
+    Also need to build [`ros_gz`](https://github.com/gazebosim/ros_gz) and [`sdformat_urdf`](https://github.com/ros/sdformat_urdf) from source if binaries are not available for your chosen combination.
 
 1. Install necessary tools
 
@@ -36,13 +38,15 @@ For using the template with Gazebo Fortress switch to the `fortress` branch of t
 Directly `Use this template` and create your project repository on Github.
 
 Or start by creating a workspace.
-Use VCS to import `ros_gz_project_template` as well as the dependencies that must be built from source.
 
    ```bash
    mkdir -p ~/template_ws/src
    cd ~/template_ws
-   vcs import --input https://raw.githubusercontent.com/gazebosim/ros_gz_project_template/main/template_workspace.yaml src
+   git clone https://github.com/gazebosim/ros_gz_project_template.git
    ```
+
+Note: Only for Gazebo Fortress, you can also use VCS to import `ros_gz_project_template` as well as the dependencies that must be built from source.
+   `vcs import --input https://raw.githubusercontent.com/gazebosim/ros_gz_project_template/main/template_workspace.yaml src`
 
 ## Usage
 
@@ -50,7 +54,7 @@ Use VCS to import `ros_gz_project_template` as well as the dependencies that mus
 
     ```bash
     cd ~/template_ws
-    source /opt/ros/humble/setup.bash
+    source /opt/ros/$ROS_DISTRO/setup.bash
     sudo rosdep init
     rosdep update
     rosdep install --from-paths src --ignore-src -i -y
